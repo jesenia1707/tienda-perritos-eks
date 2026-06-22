@@ -24,19 +24,20 @@ jobs:
       - name: Login Amazon ECR
         uses: aws-actions/amazon-ecr-login@v2
 
-      - name: Build Backend
-        run: docker build -t tienda-backend ./backend
-
       - name: Build Frontend
-        run: docker build -t tienda-frontend ./frontend
+        run: |
+          docker build -t tienda-frontend ./frontend
+          docker tag tienda-frontend:latest 487818027813.dkr.ecr.us-east-1.amazonaws.com/tienda-frontend:eks-v1
 
-      - name: Build DB
-        run: docker build -t tienda-db ./db
+      - name: Push Frontend
+        run: |
+          docker push 487818027813.dkr.ecr.us-east-1.amazonaws.com/tienda-frontend:eks-v1
 
-      - name: Configurar kubectl
+      - name: Configure kubectl
         run: |
           aws eks update-kubeconfig --region us-east-1 --name devopseks
 
-      - name: Verificar acceso a EKS
+      - name: Restart Frontend Deployment
         run: |
-          kubectl get nodes
+          kubectl rollout restart deployment tienda-frontend -n tienda
+          kubectl rollout status deployment tienda-frontend -n tienda
