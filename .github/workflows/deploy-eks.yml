@@ -27,11 +27,11 @@ jobs:
       - name: Build Frontend
         run: |
           docker build -t tienda-frontend ./frontend
-          docker tag tienda-frontend:latest 487818027813.dkr.ecr.us-east-1.amazonaws.com/tienda-frontend:eks-v1
+          docker tag tienda-frontend:latest 487818027813.dkr.ecr.us-east-1.amazonaws.com/tienda-frontend:eks-v2
 
       - name: Push Frontend
         run: |
-          docker push 487818027813.dkr.ecr.us-east-1.amazonaws.com/tienda-frontend:eks-v1
+          docker push 487818027813.dkr.ecr.us-east-1.amazonaws.com/tienda-frontend:eks-v2
 
       - name: Configure kubectl
         run: |
