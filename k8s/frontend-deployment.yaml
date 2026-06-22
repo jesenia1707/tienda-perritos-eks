@@ -15,11 +15,11 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: {{ECR_URL}}/tienda-frontend:eks-v1
+          image: 487818027813.dkr.ecr.us-east-1.amazonaws.com/tienda-frontend:eks-v1
+          imagePullPolicy: Always
           ports:
             - containerPort: 80
 
-          # Se agrega Resource para que Metrics Server calcule el % de CPU y Memoria para escalar 
           resources:
             requests:
               cpu: "50m"
@@ -28,7 +28,6 @@ spec:
               cpu: "300m"
               memory: "256Mi"
 
-          # HEALTH CHECKS
           readinessProbe:
             httpGet:
               path: /
@@ -42,4 +41,3 @@ spec:
               port: 80
             initialDelaySeconds: 10
             periodSeconds: 10
-
