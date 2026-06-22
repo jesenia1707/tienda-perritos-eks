@@ -23,11 +23,13 @@ jobs:
 
       - name: Login Amazon ECR
         uses: aws-actions/amazon-ecr-login@v2
-
+#cambios 
       - name: Build Frontend
         run: |
           docker build -t tienda-frontend ./frontend
-          docker tag tienda-frontend:latest 487818027813.dkr.ecr.us-east-1.amazonaws.com/tienda-frontend:eks-v2
+          docker tag tienda-frontend:latest 487818027813.dkr.ecr.us-east-1.amazonaws.com/tienda-frontend:eks-v2  
+          
+
 
       - name: Push Frontend
         run: |
@@ -41,3 +43,4 @@ jobs:
         run: |
           kubectl rollout restart deployment tienda-frontend -n tienda
           kubectl rollout status deployment tienda-frontend -n tienda
+
